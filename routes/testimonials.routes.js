@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { requireSignin, isAdmin } = require("../middlewares/auth");
+const { authProtect, isAdmin } = require("../middlewares/auth");
 const {
   createTestimonial,
   getTestimonials,
@@ -9,12 +9,12 @@ const {
 
 router
   .route("/testimonials")
-  .post(requireSignin, isAdmin, createTestimonial)
+  .post(authProtect, isAdmin, createTestimonial)
   .get(getTestimonials);
 
 router
   .route("/testimonials/:id")
-  .delete(requireSignin, isAdmin, deleteTestimonial)
-  .put(requireSignin, isAdmin, updateTestimonial);
+  .delete(authProtect, isAdmin, deleteTestimonial)
+  .put(authProtect, isAdmin, updateTestimonial);
 
 module.exports = router;

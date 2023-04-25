@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { requireSignin, isAdmin } = require("../middlewares/auth");
+const { authProtect, isAdmin } = require("../middlewares/auth");
 
 const {
   createHero,
@@ -13,9 +13,9 @@ const {
 router.route("/hero/:hero").get(getHero);
 router.route("/about/:about").get(getAbout);
 router.route("/footer/:footer").get(getFooter);
-router.route("/hero").post(requireSignin, isAdmin, createHero);
+router.route("/hero").post(authProtect, isAdmin, createHero);
 
-router.route("/footer").post(requireSignin, isAdmin, createFooter);
-router.route("/about").post(requireSignin, isAdmin, createAbout);
+router.route("/footer").post(authProtect, isAdmin, createFooter);
+router.route("/about").post(authProtect, isAdmin, createAbout);
 
 module.exports = router;
